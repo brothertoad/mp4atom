@@ -3,7 +3,6 @@ package mp4atom
 import (
   "encoding/binary"
   "io"
-  "strconv"
   "strings"
   "github.com/brothertoad/btu"
 )
@@ -27,8 +26,7 @@ func FindAtomPath(reader SeekableReader, atomPath string) int64 {
     if strings.Contains(word, "-") {
       typeAndCount := strings.Split(word, "-")
       parts[j].atomType = typeAndCount[0]
-      count, err := strconv.Atoi(typeAndCount[1])
-      btu.CheckError(err)
+      count := btu.Atoi(typeAndCount[1])
       parts[j].count = count
     } else {
       parts[j].atomType = word
